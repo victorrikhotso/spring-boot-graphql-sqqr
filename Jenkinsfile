@@ -6,7 +6,7 @@ pipeline {
   stages {
     stage('Build App') {
       steps {
-        git url: "https://github.com/victorrikhotso/spring-boot-graphql-sqqr.git"
+        git branch: "master", url: "https://github.com/victorrikhotso/spring-boot-graphql-sqqr.git"
         sh "${mvnCmd} install -DskipTests=true"
         stash name:"jar", includes:"target/demo-0.0.1-SNAPSHOT.jar"
       }
