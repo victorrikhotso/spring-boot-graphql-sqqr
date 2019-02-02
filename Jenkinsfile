@@ -70,14 +70,9 @@ pipeline {
                 }
                 script {
                     openshift.withCluster() {
-                        if (env.ENABLE_QUAY.toBoolean()) {
-                            withCredentials([usernamePassword(credentialsId: "${openshift.project()}-quay-cicd-secret", usernameVariable: "QUAY_USER", passwordVariable: "QUAY_PWD")]) {
-                                sh "skopeo copy docker://quay.io/${QUAY_USERNAME}/${QUAY_REPOSITORY}:latest docker://quay.io/${QUAY_USERNAME}/${QUAY_REPOSITORY}:stage --src-creds \"$QUAY_USER:$QUAY_PWD\" --dest-creds \"$QUAY_USER:$QUAY_PWD\" --src-tls-verify=false --dest-tls-verify=false"
-                            }
-                        } else {
+
                             openshift.tag("${env.DEV_PROJECT}/car-service:latest",
                                           "${env.STAGE_PROJECT}/car-service:stage")
-                        }
                     }
                 }
             }
