@@ -26,7 +26,7 @@ pipeline {
     }
     stage('Archive App') {
       steps {
-        sh "${mvnCmd} deploy -DskipTests=true -P nexus3"
+        sh "${mvnCmd} deploy -DskipTests=true -P nexus3 -DaltDeploymentRepository=nexus3::default::http://nexus3.ci-cd.svc:8081/repository/maven-central"
       }
     }
     stage('Build Image') {
