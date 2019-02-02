@@ -1,4 +1,4 @@
-def mvnCmd = "mvn -s /home/jenkins/.m2/settings.xml -X"
+def mvnCmd = "mvn -s /configuration/settings.xml -X"
 pipeline {
   agent {
     label 'maven'
