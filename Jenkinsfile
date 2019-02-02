@@ -111,7 +111,7 @@ pipeline {
           }
         }
       }
-    }
+    }}
     stage('Promote to STAGE?') {
       agent {
         label 'skopeo'
