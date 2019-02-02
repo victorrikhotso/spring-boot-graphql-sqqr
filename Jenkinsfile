@@ -1,4 +1,4 @@
-def mvnCmd = "mvn"
+def mvnCmd = "mvn -X"
 pipeline {
   agent {
     label 'maven'
