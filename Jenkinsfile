@@ -31,11 +31,11 @@ pipeline {
     }
     stage('Build Image') {
       steps {
-        sh "cp target/demo-0.0.1-SNAPSHOT.jar target/app.jar"
+        sh "cp target/demo-0.0.1-SNAPSHOT.jar target/demo.jar"
         script {
           openshift.withCluster() {
             openshift.withProject(env.DEV_PROJECT) {
-              openshift.selector("bc", "car-service").startBuild("--from-file=target/app.jar", "--wait=true")
+              openshift.selector("bc", "car-service").startBuild("--from-file=target/demo.jar", "--wait=true")
             }
           }
         }
