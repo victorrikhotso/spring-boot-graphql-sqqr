@@ -1,4 +1,4 @@
-def mvnCmd = "mvn -s /configuration/settings.xml -X"
+def mvnCmd = "mvn -s /nexus3/settings.xml -X"
 pipeline {
   agent {
     label 'maven'
