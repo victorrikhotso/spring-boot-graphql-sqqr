@@ -49,6 +49,7 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject(env.DEV_PROJECT) {
+                            openshift.selector("dc", "car-service").rollout().latest();
                             def latestDeploymentVersion = openshift.selector("dc", "car-service").object().status.latestVersion
                             def rc = openshift.selector("rc", "car-service-${latestDeploymentVersion}")
                             rc.untilEach(1){
