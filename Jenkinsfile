@@ -50,12 +50,9 @@ pipeline {
                     openshift.withCluster() {
                         openshift.withProject(env.DEV_PROJECT) {
                             openshift.selector("dc", "car-service").rollout().latest();
-                            def latestDeploymentVersion = openshift.selector("dc", "car-service").object().status.latestVersion
-                            def rc = openshift.selector("rc", "car-service-${latestDeploymentVersion}")
-                            rc.untilEach(1){
-                                def rcMap = it.object()
-                                return (rcMap.status.replicas.equals(rcMap.status.readyReplicas))
-                            }
+                            def dc = openshift.selector('dc', "car-service")
+                            // this will wait until the desired replicas are available
+                            dc.rollout().status()
                         }
                     }
                 }
