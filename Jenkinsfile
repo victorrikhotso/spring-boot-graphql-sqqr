@@ -64,24 +64,26 @@ pipeline {
             }
             steps {
                 timeout(time: 15, unit: 'MINUTES') {
-                    input message: "Promote to STAGE?", ok: "Promote"
+                    input message: "Promote to QA?", ok: "Promote"
                 }
                 script {
                     openshift.withCluster() {
 
                             openshift.tag("${env.DEV_PROJECT}/car-service:latest",
-                                          "${env.STAGE_PROJECT}/car-service:stage")
+                                          "${env.STAGE_PROJECT}/car-service:qa")
                     }
                 }
             }
         }
-        stage('Deploy STAGE') {
+        stage('Deploy QA') {
             steps {
                 script {
                     openshift.withCluster() {
                         openshift.withProject(env.STAGE_PROJECT) {
-                            openshift.selector(
-                                "dc", "car-service").rollout().latest()
+                            openshift.selector("dc", "car-service").rollout().latest()
+                            def dc = openshift.selector('dc', "car-service")
+                            // this will wait until the desired replicas are available
+                            dc.rollout().status()
                         }
                     }
                 }
