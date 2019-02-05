@@ -58,7 +58,7 @@ pipeline {
                 }
             }
         }
-        stage('Promote to STAGE?') {
+        stage('Promote to QA?') {
             agent {
                 label 'skopeo'
             }
