@@ -26,7 +26,7 @@ public class GiphyService {
         String giphy = GIPHY_BASE + searchTerm + KEY;
         try {
             URI uri = UriComponentsBuilder.fromUriString(giphy).build().encode().toUri();
-            MultiValueMap<String, String> mvm = new LinkedMultiValueMap<String, String>();
+            MultiValueMap<String, String> mvm = new LinkedMultiValueMap<>();
             ResponseEntity<String> res = rest.exchange(uri, HttpMethod.GET, new HttpEntity(mvm, null), String.class);
 
             JsonObject json = gson.fromJson(res.getBody(), JsonObject.class);
@@ -38,7 +38,7 @@ public class GiphyService {
             JsonObject original = images.getAsJsonObject("original");
             return original.getAsJsonPrimitive("url").getAsString();
 
-        } catch (Throwable e) {
+        } catch (Exception e) {
             return "https://media.giphy.com/media/EFXGvbDPhLoWs/giphy.gif";
         }
 
