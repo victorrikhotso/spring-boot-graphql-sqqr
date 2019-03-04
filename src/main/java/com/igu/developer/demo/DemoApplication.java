@@ -21,7 +21,7 @@ public class DemoApplication {
 	@Bean
 	ApplicationRunner init(CarService carService) {
 		return args -> {
-			Stream.of("Ferrari", "Jaguar", "Porsche", "Lamborghini", "Bugatti",
+			Stream.of("Land Rover", "Jaguar", "Porsche", "Lamborghini", "Bugatti",
 					"AMC Gremlin", "Triumph Stag", "Ford Pinto", "Yugo GV").forEach(name -> {
 				Car car = new Car();
 				car.setName(name);
